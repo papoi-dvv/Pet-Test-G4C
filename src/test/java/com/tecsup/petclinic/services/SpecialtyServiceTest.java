@@ -33,5 +33,11 @@ public class SpecialtyServiceTest {
 		assertEquals(NAME, owner.getName());
 
 	}
+
+
+
+
+
+
 	*/
 }
