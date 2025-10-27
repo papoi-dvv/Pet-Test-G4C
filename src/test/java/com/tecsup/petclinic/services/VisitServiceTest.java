@@ -1,35 +1,55 @@
 package com.tecsup.petclinic.services;
-
 import com.tecsup.petclinic.dtos.VisitDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
+
+import static com.jayway.jsonpath.internal.path.PathCompiler.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
 @SpringBootTest
 public class VisitServiceTest {
 
-    @Test
-    public void DeleteVisitTest(){
+    @Autowired
+    private VisitService visitService;
 
-        String VISIT_NAME = " ";
-        int OWNER_ID = 1;
-        int TYPE_ID = 1;
+    @Test
+    public void testDeleteVisit() {
+
+        String DESCRIPTION = "Test visit for deletion";
+        double COST = 50.00;
+        Integer PET_ID = 1;
+        Integer VET_ID = 1;
+        LocalDate VISIT_DATE = LocalDate.now();
 
         VisitDTO visitDTO = VisitDTO.builder()
-                .name(VISIT_NAME)
-                .ownerId(OWNER_ID)
-                .typeId(TYPE_ID)
+                .description(DESCRIPTION)
+                .cost(COST)
+                .petId(PET_ID)
+                .vetId(VET_ID)
+                .visitDate(VISIT_DATE)
                 .build();
+
         VisitDTO newVisitDTO = this.visitService.create(visitDTO);
-        this.visitService.delete(newVisitDTO.getId());
-        assertThrows(VisitNotFoundException.class, () -> {
+        log.info("VISIT CREATED: " + newVisitDTO);
+
+        try {
             this.visitService.delete(newVisitDTO.getId());
-        });
+        } catch (VisitNotFoundException e) {
+            fail(e.getMessage());
+        }
 
+        try {
+            this.visitService.findById(newVisitDTO.getId());
+            assertTrue(false, "Visit should not be found after deletion");
+        } catch (VisitNotFoundException e) {
+            assertTrue(true);
+            log.info("Visit successfully deleted and not found");
+        }
     }
-
-
-
 }
