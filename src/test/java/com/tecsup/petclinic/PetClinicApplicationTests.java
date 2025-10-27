@@ -9,5 +9,7 @@ public class PetClinicApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
+    @Test
+    public void VisitServiceTest() {
+    }
 }
