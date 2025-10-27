@@ -18,7 +18,7 @@ public interface PetService {
 	 * @param petDTO
 	 * @return
 	 */
-	public PetDTO create(PetDTO petDTO);
+    PetDTO create(PetDTO petDTO);
 
 	/**
 	 * 
@@ -67,4 +67,6 @@ public interface PetService {
 	 * @return
 	 */
 	List<Pet> findAll();
+
+
 }
