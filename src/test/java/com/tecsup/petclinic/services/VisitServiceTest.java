@@ -21,7 +21,7 @@ public class VisitServiceTest {
     @Test
     public void testDeleteVisit() {
 
-        String DESCRIPTION = "Test visit for deletion";
+        String DESCRIPTION = "";
         double COST = 50.00;
         Integer PET_ID = 1;
         Integer VET_ID = 1;
@@ -36,7 +36,7 @@ public class VisitServiceTest {
                 .build();
 
         VisitDTO newVisitDTO = this.visitService.create(visitDTO);
-        log.info("VISIT CREATED: " + newVisitDTO);
+        log.info(" " + newVisitDTO);
 
         try {
             this.visitService.delete(newVisitDTO.getId());
@@ -46,10 +46,10 @@ public class VisitServiceTest {
 
         try {
             this.visitService.findById(newVisitDTO.getId());
-            assertTrue(false, "Visit should not be found after deletion");
+            assertTrue(false, "Visit n");
         } catch (VisitNotFoundException e) {
             assertTrue(true);
-            log.info("Visit successfully deleted and not found");
+            log.info("d");
         }
     }
 }
